@@ -88,26 +88,25 @@ let productos= [
 ];
 
 function filtrarPosicionPorNombre(array, nombreBuscado) {
-    let posicion = [];
+    let posicion = 999;
     array.forEach(function(producto, indice) {
         if (producto.nombre.toLowerCase().includes(nombreBuscado)) {
-            posicion.push(indice);
-            console.log(posicion)
+            posicion = indice;
         }
     });
     return posicion;
 }
 
-let nombreBuscado = prompt( "BIENVENIDO A BIKEMARKET\n que modelo de bicicleta está buscando? Seleccione el modelo de bicicleta que desea comprar: \n 1: bicicleta urbana electrica Devron - $2750 \n 2: Bicicleta urbana electrica Ecobike - $3215 \n 3: Bicicleta urbana RoadForce - $4800 \n 4: Bicicleta urbana electrica KTM - $3450 \n 5: Bicicleta ROAD Berria - 4600 \n 6: Bicicleta Road Kross - $5400 \n 7: Bicicleta Road Moser - $5760 \n 8: Bicicleta urbana Monty - $2100 \n 9: Bicicleta urbana Merida - $2630 ").toLowerCase();
-let f = filtrarPosicionPorNombre(productos, nombreBuscado);
+let nombreBuscado = prompt( "BIENVENIDO A BIKEMARKET\n Indique la marca de bicicleta que desea comprar: \n - Bicicleta urbana electrica Devron - $2750 \n - Bicicleta urbana electrica Ecobike - $3215 \n - Bicicleta urbana RoadForce - $4800 \n - Bicicleta urbana electrica KTM - $3450 \n - Bicicleta ROAD Berria - 4600 \n - Bicicleta Road Kross - $5400 \n - Bicicleta Road Moser - $5760 \n - Bicicleta urbana Monty - $2100 \n - Bicicleta urbana Merida - $2630 ").toLowerCase();
+let indice = filtrarPosicionPorNombre(productos, nombreBuscado);
 
-if (f === 999){
+if (indice === 999){
     alert ("el modelo ingresado no es correcto");
 }else {
-    alert(`el modelo disponible de la bicicleta es: ${productos[f].nombre} su valor es de: ${productos[f].precio}`);
-comprarSi = prompt(`Desea comprar ${productos[f].nombre} responda si o no`).toLowerCase();
+    alert(`el modelo disponible de la bicicleta es: ${productos[indice].nombre} su valor es de: ${productos[indice].precio}`);
+comprarSi = prompt(`Desea comprar ${productos[indice].nombre} responda si o no`).toLowerCase();
 if (comprarSi === "si"){
-    comprarProducto(productos[f].precio);
+    comprarProducto(productos[indice].precio);
 }else {
     alert ("Gracias por tu visita");
 }
