@@ -2,7 +2,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}.navbar-brand:hover{
+}
+.navbar-brand:hover{
     animation:flip;
     animation-duration: 1s;
 }
@@ -11,6 +12,11 @@ header{
     width: 100%;
     padding: 0px 1.5rem;
     z-index: 20;
+    height: 100px;
+    transition: all .3s ease;
+}
+.scrolled{
+    background-color: #080809 !important;
 }
 
 .dropdown-item{
@@ -31,10 +37,8 @@ header{
 }
 
 .navbar-brand img{
-    background-repeat: no-repeat;
-    max-width: 500px;
-    margin: .3125rem;
-    margin-top: .625rem;
+  height: 50px;
+
 }
 
 .navbar li a{
@@ -50,6 +54,7 @@ header{
     animation-duration: 1s;
 }
 
+
 /* MAIN INICIO */
 
 .section-home{
@@ -62,12 +67,24 @@ header{
     justify-content: center;
     align-items: center;
 }
+#seccion-contenedor{
+    padding: 100px 0;
+}
+#seccion-contenedor h2{
+    text-align: center;
+}
+.card-img-container{
+    max-width: 300px;
+}
+#card-container{
+    max-width: 1200px;
+    margin: auto;
+}
 
-
-section div img {
+.card-img-top {
     width: 100%;
-    height: 20rem;
-    opacity: 2;
+    height: 100%;
+    object-fit: cover;
     transition: all 300ms;
 }
 .caja{
@@ -76,30 +93,104 @@ section div img {
 section div .card {
     background-color: #e0e0e0;
     border-radius: 5px;
-    box-shadow: 5px 5px 10px 5px #4b4c4d;
+    max-width: 300px;
+    max-height: 500px;
+    width: 100%;
+    height: 100%;
 }
-section .cardBody {
-    height: 280px;
-    box-shadow: 5px 5px 10px 5px #4b4c4d;
-}
+
 section .cardTitle {
-    font-size: 30px;
+    font-size: 18px;
     text-transform: uppercase;
-    text-decoration: underline;
 }
 section .cardText {
-    font-size: 20px;
+    font-size: 15px;
 }
 section .cardTitle, section .cardText {
-    padding-top: 20px;
+    margin-top: 10px;
     font-family: "Encode Sans Semi Condensed", sans-serif;
     text-align: center;
 }
-section .card:hover {
-    border: 5px solid rgba(78, 77, 77, 0.658);
-    transform: scale(1.08);
+.card-body{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-comprar{
+    width: fit-content;
+    margin-bottom: 5px;
+}
+
+.card:hover {
+  outline: 1px solid black;
 
 }
+
+/* ESTILOS CARRITO */
+
+.carrito-contenedor{
+    position: relative;
+}
+#contador-carrito{
+    position: absolute;
+    color: white;
+    border-radius: 50%;
+    background-color: red;
+    text-align: center;
+    font-size: 15px;
+    top: 0;
+    width: 25px;
+    height: 25px;
+}
+#boton-carrito{
+    cursor: pointer;
+}
+.contenedor-carrito-imagen-min{
+    width: 50px;
+    height: 50px;
+}
+.carrito-imagen-min{
+    width: 100%;
+    height: 100%;
+}
+.carrito-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+.carrito-item div p{
+    margin-top: 12px;
+}
+.carrito-modificar,
+.carrito-eliminar{
+    border: none;
+    background-color: transparent;
+}
+.contenedor-botones-carrito{
+    margin: auto 0;
+}
+.contenedor-stock{
+    position: relative;
+    padding: 10px 20px;
+    height: 30px;
+    width: 30px;
+}
+.contenedor-stock i{
+    position: absolute;
+    top: 60%;
+    transform: translateY(-100%);
+}
+.boton-restar,
+.boton-sumar{
+    cursor: pointer;
+    z-index: 50;
+}
+
+
 
 /* footer general */
 .footer-container{ 
@@ -150,4 +241,3 @@ section .card:hover {
 .footer-copy p{
     color: rgb(0, 0, 0);
 }
-

@@ -1,232 +1,273 @@
-let interes=15/100, precioTarjeta, cuotas, precioDescuento, continuar, formaDePago;
-
-function calcularPrecio(precioEfectivo, cuotas) {
-    if (cuotas === 3){
-        precioTarjeta = precioEfectivo + precioEfectivo*interes;
-        alert(`el precio final en 3 cuotas seria de: ${precioTarjeta} y el valor de cada cuota seria de: ${precioTarjeta/3}`);
-    }else if (cuotas === 6) {
-        precioTarjeta = precioEfectivo + precioEfectivo*interes;
-        alert(`el precio final en 6 cuotas seria de: ${precioTarjeta} y el valor de cada cuota seria de: ${precioTarjeta/6}`);
-    }else if (cuotas === 12) {
-        precioTarjeta = precioEfectivo + precioEfectivo*interes;
-        alert(`el precio final en 12 cuotas seria de: ${precioTarjeta} y el valor de cada cuota seria de: ${precioTarjeta/12}`);
-    }else {
-        alert("el numero de cuotas es invalido, intente nuevamente");
-    }
-}
-
-function comprarProducto(precioEfectivo) {
-    do{
-        formaDePago = prompt("Abonaria con tarjeta de credito?(responda si o no)").toLowerCase();
-        if (formaDePago === "si"){
-            cuotas = parseInt (prompt("ingrese la cantidad de cuotas con que desea abonar (3, 6 o 12"));
-            calcularPrecio(precioEfectivo, cuotas);
-        }else {
-            precioDescuento = precioEfectivo - precioEfectivo*interes;
-            alert(`si abona en efectivo el precio final es de : ${precioDescuento}`);
-        }
-        continuar = prompt("desea consultar por otras opciones de pago?(responda si o no)");
-    }while(continuar === "si");
-    alert("gracias por tu consulta");
-}
-
-let productos= [
-    {
-        nombre: "Bicicleta urbana electrica Devron" ,
-        precio: 2750,
-        categoria: "Bicicleta urbana",
-        stock: 5
-    },
-    {
-        nombre: "Bicicleta urbana electrica Ecobike" ,
-        precio: 3215,
-        categoria: "Bicicleta urbana",
-        stock: 8
-    },
-    {
-        nombre: "Bicicleta urbana RoadForce" ,
-        precio: 4800,
-        categoria: "Bicicleta urbana",
-        stock: 6
-    },
-    {
-        nombre: "Bicicleta urbana electrica KTM" ,
-        precio: 3450,
-        categoria: "Bicicleta urbana",
-        stock: 3
-    },
-    {
-        nombre: "Bicicleta ROAD Berria" ,
-        precio: 4600,
-        categoria: "Bicicleta de ruta",
-        stock: 4
-    },
-    {
-        nombre: "Bicicleta Road Kross" ,
-        precio: 5400,
-        categoria: "Bicicleta de ruta",
-        stock: 6
-    },
-    {
-        nombre: "Bicicleta Road Moser" ,
-        precio: 5760,
-        categoria: "Bicicleta de ruta",
-        stock: 3
-    },
-    {
-        nombre: "Bicicleta urbana Monty" ,
-        precio: 2100,
-        categoria: "Bicicleta urbana",
-        stock: 7
-    },
-    {
-        nombre: "Bicicleta urbana Merida" ,
-        precio: 2630,
-        categoria: "Bicicleta urbana",
-        stock: 2
-    }
-];
-
-function filtrarPosicionPorNombre(array, nombreBuscado) {
-    let posicion = 999;
-    array.forEach(function(producto, indice) {
-        if (producto.nombre.toLowerCase().includes(nombreBuscado)) {
-            posicion = indice;
-        }
-    });
-    return posicion;
-}
-
-let nombreBuscado = prompt( "BIENVENIDO A BIKEMARKET\n Indique la marca de bicicleta que desea comprar: \n - Bicicleta urbana electrica Devron - $2750 \n - Bicicleta urbana electrica Ecobike - $3215 \n - Bicicleta urbana RoadForce - $4800 \n - Bicicleta urbana electrica KTM - $3450 \n - Bicicleta ROAD Berria - 4600 \n - Bicicleta Road Kross - $5400 \n - Bicicleta Road Moser - $5760 \n - Bicicleta urbana Monty - $2100 \n - Bicicleta urbana Merida - $2630 ").toLowerCase();
-let indice = filtrarPosicionPorNombre(productos, nombreBuscado);
-
-if (indice === 999){
-    alert ("el modelo ingresado no es correcto");
-}else {
-    alert(`el modelo disponible de la bicicleta es: ${productos[indice].nombre} su valor es de: ${productos[indice].precio}`);
-comprarSi = prompt(`Desea comprar ${productos[indice].nombre} responda si o no`).toLowerCase();
-if (comprarSi === "si"){
-    comprarProducto(productos[indice].precio);
-}else {
-    alert ("Gracias por tu visita");
-}
-}
-
-// const CONTAINER_CAJA = document.getElementById("sectionContenedor");
-
-// CONTAINER_CAJA.innerHTML = `
-//                         <div class="container caja">
-//                             <div class="row size">
-//                                 <div class="col-lg-4 col-md-6 col-sm-12">
-//                                     <div class="card">
-//                                         <img src="./assets/img/avenida.jpg" class="card-img-top" alt="bicicleta urbana">
-//                                         <div class="cardBody">
-//                                             <h5 class="cardTitle">Bicicleta Urbana</h5>
-//                                             <p class="cardText text-dark">Bicicleta urbana electrica".</p>
-//                                         </div>
-//                                     </div>
-//                                 </div>
-//                                 <div class="col-lg-4 col-md-6 col-sm-12">
-//                                 <div class="card">
-//                                     <img src="./assets/img/d2-city.jpg" alt="bicicleta electrica urbana" class="card-img-top" alt="bicicleta urbana electrica">
-//                                     <div class="cardBody">
-//                                         <h5 class="cardTitle">Urbana Retro</h5>
-//                                         <p class="cardText text-dark">bicicleta electrica urbana retro.</p>
-//                                     </div>
-//                                 </div>
-//                             </div>
-//                             </div>
-//                             <div class="col-lg-4 col-md-6 col-sm-12">
-//                                 <div class="card">
-//                                     <img src="./assets/img/belador-hybrid-ltd-1.jpg" class="card-img-top" alt="bici belador carrera">
-//                                     <div class="cardBody">
-//                                         <h5 class="cardTitle">bicicleta trekking berria</h5>
-//                                         <p class="cardText text-dark">bicicleta de montaña Berria.</p>
-//                                     </div>
-//                                 </div>
-//                             </div>
-//                             <div class="col-lg-4 col-md-6 col-sm-12">
-//                                 <div class="card">
-//                                     <img src="./assets/img/escultura-400.jpg" class="card-img-top" alt="Road bike Merida">
-//                                     <div class="cardBody">
-//                                         <h5 class="cardTitle">Road bike Merida</h5>
-//                                         <p class="cardText text-dark">bicicleta de ruta Merida.</p>
-//                                     </div>
-//                                 </div>
-//                             </div>
-//                             <div class="col-lg-4 col-md-6 col-sm-12">
-//                                 <div class="card">
-//                                     <img src="./assets/img/road-force.jpg" class="card-img-top" alt="Road force merida ">
-//                                     <div class="cardBody">
-//                                         <h5 class="cardTitle">Road Force Merida</h5>
-//                                         <p class="cardText text-dark">Bicicleta Road Force Merida.</p>
-//                                     </div>
-//                                 </div>
-//                             </div>
-//                             <div class="col-lg-4 col-md-6 col-sm-12 size">
-//                                 <div class="card">
-//                                     <img src="./assets/img/corsa.jpg" class="card-img-top" alt="Bicicleta de ciudad corsa">
-//                                     <div class="cardBody">
-//                                         <h5 class="cardTitle">corsa city</h5>
-//                                         <p class="cardText text-dark">Bicicleta de ciudad Corsa.</p>
-//                                     </div>
-//                                 </div>
-//                             </div>
-//                             <div class="col-lg-4 col-md-6 col-sm-12 size">
-//                                 <div class="card">
-//                                     <img src="./assets/img/crossway-l-10-v.jpg" class="card-img-top" alt="Bicicleta de ciudad crossway">
-//                                     <div class="cardBody">
-//                                         <h5 class="cardTitle">Bicicleta Crossway</h5>
-//                                         <p class="cardText text-dark">Bicicleta de ciudad Crossway.</p>
-//                                     </div>
-//                                 </div>
-//                             </div>
-//                             <div class="col-lg-4 col-md-6 col-sm-12 size">
-//                                 <div class="card">
-//                                     <img src="./assets/img/evado-4-0.jpg" class="card-img-top" alt="Bicicleta de ciudad">
-//                                     <div class="cardBody">
-//                                         <h5 class="cardTitle">Bicicleta city</h5>
-//                                         <p class="cardText text-dark">Bicicleta de ciudad.</p>
-//                                     </div>
-//                                 </div>
-//                             </div>
-//                             </div>
-//                         </div>`
-class Producto{
-    constructor(nombre, precio,caracteristicas,img){
+class Producto {
+    constructor(nombre, precio, caracteristicas, img, stock) {
         this.nombre = nombre;
         this.precio = precio;
         this.caracteristicas = caracteristicas;
         this.img = img;
+        this.stock = stock;
     }
 }
 
-const PROD1 = new Producto("Bicicleta urbana electrica Devron" ,2750, "Bicicleta urbana", "avenida.jpg");
-const PROD2 = new Producto("Bicicleta urbana electrica Ecobike" ,3215, "Bicicleta urbana", "d2-city.jpg");
-const PROD3 = new Producto("Bicicleta urbana RoadForce" ,4800, "Bicicleta urbana", "road-force.jpg");
-const PROD4 = new Producto("Bicicleta urbana electrica KTM" ,3450, "Bicicleta urbana", "belador-hybrid-ltd-1.jpg");
-const PROD5 = new Producto("Bicicleta ROAD Berria" ,4600, "Bicicleta de ruta", "escultura-400.jpg");
-const PROD6 = new Producto("Bicicleta Road Kross" ,5400, "Bicicleta de ruta", "macina-fun-a510.jpg");
-const PROD7 = new Producto("Bicicleta Road Moser" ,5760, "Bicicleta de ruta", "crossway-l-10-v.jpg");
-const PROD8 = new Producto("Bicicleta urbana Monty" ,2100, "Bicicleta urbana", "evado-4-0.jpg");
-const PROD9 = new Producto("Bicicleta urbana Merida" ,2600, "Bicicleta urbana", "corsa.jpg");
 
-const arrayProductos = [PROD1,PROD2,PROD3,PROD4,PROD5,PROD6,PROD7,PROD8,PROD9];
+const PROD1 = new Producto("Bicicleta Devron", 2750, "Urbana electrica", "avenida.jpg", 3);
+const PROD2 = new Producto("Bicicleta Ecobike", 3215, "Urbana electrica", "d2-city.jpg", 4);
+const PROD3 = new Producto("Bicicleta RoadForce", 4800, "Bicicleta Urbana", "road-force.jpg", 5);
+const PROD4 = new Producto("Bicicleta KTM", 3450, "Urbana electrica", "belador-hybrid-ltd-1.jpg", 2);
+const PROD5 = new Producto("Bicicleta Berria", 4600, "Bicicleta de ruta", "escultura-400.jpg", 8);
+const PROD6 = new Producto("Bicicleta Kross", 5400, "Bicicleta de ruta", "macina-fun-a510.jpg", 1);
+const PROD7 = new Producto("Bicicleta Moser", 5760, "Bicicleta de ruta", "crossway-l-10-v.jpg", 6);
+const PROD8 = new Producto("Bicicleta Monty", 2100, "Bicicleta urbana", "evado-4-0.jpg", 4);
+const PROD9 = new Producto("Bicicleta Merida", 2600, "Bicicleta urbana", "corsa.jpg", 3);
 
-const contenedorProductos =document.getElementById("contenedorProductos");
+const arrayProductos = [PROD1, PROD2, PROD3, PROD4, PROD5, PROD6, PROD7, PROD8, PROD9];
+let carrito = [];
+let contadorCarrito = 0;
+const CONTAINER_CAJA = document.getElementById("seccion-contenedor");
 
-arrayProductos.forEach(producto =>{
+// Obtén el contenedor una vez fuera del bucle
+const CARD_CONTAINER = document.getElementById("card-container");
+
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    // Esto se ejecutará cuando el documento HTML haya sido completamente cargado
+    cargarCarritoDesdeLocalStorage();
+});
+
+function cargarCarritoDesdeLocalStorage() {
+    const carritoGuardado = localStorage.getItem('carrito');
+
+    if (carritoGuardado) {
+        carrito = JSON.parse(carritoGuardado);
+        actualizarContadorCarrito();
+        // Puedes realizar otras acciones relacionadas con la carga del carrito si es necesario
+    }
+}
+
+
+arrayProductos.forEach(producto => {
+    // Crea el elemento div dentro del bucle
     const div = document.createElement("div");
+    // Establece la clase del div
+    div.className = "col-lg-4 col-md-6 col-sm-12";
 
-    div.className ="card";
-    div.innerHTML =`
-                <img class="card-img" src="${producto.img}">
-                <div>
-                    <h3>${producto.nombre}</h3>
-                    <h4>${producto.caracteristicas}</h4>
-                    <p>${producto.precio}</p>
-                    <button>comprar</button>
+    // Establece el contenido HTML del div
+    div.innerHTML = `
+        <div class="card mt-5">
+            <div class="card-img-container">
+                <img class="card-img-top" src="./assets/img/${producto.img}">
+            </div>
+            <div class="card-body">
+                <h3 class="cardTitle">${producto.nombre}</h3>
+                <h4 class="cardText text-dark">${producto.caracteristicas}</h4>
+                <p class="cardText text-dark">$${producto.precio}</p>
+                <button class="btn btn-danger btn-comprar" type="button">Añadir al carrito</button>
+            </div>
+        </div>    
+    `;
+
+    // Agrega el div al contenedor una vez fuera del bucle
+    CARD_CONTAINER.appendChild(div);
+});
+
+const BOTON_COMPRAR = document.querySelectorAll(".btn-comprar");
+const CONTADOR_CARRITO = document.querySelector("#contador-carrito");
+CONTADOR_CARRITO.innerHTML = `${carrito.length}`
+const BOTON_CARRITO = document.querySelector("#boton-carrito");
+
+BOTON_CARRITO.addEventListener("click", mostrarCarrito);
+
+function mostrarCarrito() {
+    // Verifica si hay elementos en el carrito
+    if (carrito.length === 0) {
+        Swal.fire({
+            title: 'Carrito de compras vacío',
+            text: 'Agrega productos a tu carrito antes de revisarlo.',
+            icon: 'info'
+        });
+        return;
+    } else {
+        // Construye el contenido HTML para SweetAlert2 con la información del carrito
+        let contenidoHtml = "<div class='carrito-contenedor mx-auto'>";
+        let total = 0;
+        carrito.forEach((producto, index) => {
+            contenidoHtml += `
+                <div class='carrito-item'>
+                    <div class="contenedor-carrito-imagen-min d-flex">
+                        <img src='./assets/img/${producto.img}' class="carrito-imagen-min">
+                    </div>
+                    <div>
+                    <p>${producto.nombre}</p>
+                    </div>
+                    <div class="d-flex gap-2 mx-4">
+                        <div class="boton-restar"><i class=" bi bi-dash-circle"></i></div>
+                        <span class="fw-bold">${producto.stock}</span>
+                        <div class="boton-sumar"><i class="bi bi-plus-circle"></i></div>
+                    </div>
+                    <div><p>$${producto.precio}</p></div>
+                    <div class="contenedor-botones-carrito">
+                        <button class='carrito-eliminar'><i class="bi bi-trash3"></i></button>
+                    </div>
+                    
+                </div>`;
+            let sumaPrecio = producto.precio * producto.stock;
+            total += sumaPrecio;
+        });
+
+        contenidoHtml += `</div>
+            <div class="d-flex flex-column">
+                <div class="d-flex justify-content-between border-bottom mt-2">
+                    <p>Transporte</p>
+                    <p>Gratis</p>
                 </div>
-                `;
-        contenedorProductos.appendChild(div);
-})
+                <div class="d-flex justify-content-between mt-2">
+                    <p>Total</p>
+                    <p>$${total}</p>
+                </div>
+            </div>`;
+
+            Swal.fire({
+                title: 'Carrito de compras',
+                html: contenidoHtml,
+                width: 600,
+                showCloseButton: true,
+                confirmButtonText: 'Continuar Compra',
+                didRender: () => {
+                    // Agrega los event listeners después de que se renderiza la ventana modal
+                    const modal = Swal.getPopup();
+                    if (modal) {
+                        modal.querySelectorAll('.boton-sumar').forEach((boton, indice) => {
+                            boton.addEventListener("click", () => {
+                                modificarStock(indice, 1);
+                            });
+                        });
+        
+                        modal.querySelectorAll('.boton-restar').forEach((boton, indice) => {
+                            boton.addEventListener("click", () => {
+                                modificarStock(indice, -1);
+                            });
+                        });
+        
+                        modal.querySelectorAll('.carrito-eliminar').forEach((boton, indice) => {
+                            boton.addEventListener("click", () => {
+                                eliminarProducto(indice);
+                            });
+                        });
+                    }
+                }
+            }).then((result) => {
+            if (result.isConfirmed) {
+                // Lógica para continuar la compra
+                // ...
+            }
+        });
+    }
+}
+
+
+// Función para modificar el stock de un producto en el carrito
+function modificarStock(indice, cantidad) {
+    const producto = carrito[indice];
+
+    // Verifica si la cantidad es positiva (sumar) o negativa (restar)
+    if (cantidad > 0) {
+        // Incrementa la cantidad y verifica si no supera el stock máximo
+
+        if (producto.stock < arrayProductos.find(p => p.nombre === producto.nombre).stock) {
+            carrito[indice].stock += cantidad;
+            console.log(carrito[indice].stock)
+            actualizarContadorCarrito();
+        } else {
+
+        }
+    } else if (cantidad < 0) {
+        // Decrementa la cantidad y verifica si no es menor que cero
+        carrito[indice].stock += cantidad;
+        console.log(carrito[indice].stock);
+        actualizarContadorCarrito();
+        if (carrito[indice].stock < 1) {
+            eliminarProducto(indice);
+        }
+    }
+
+    // Actualiza la visualización del carrito
+    actualizarContadorCarrito();
+    mostrarCarrito();
+    guardarCarritoEnLocalStorage();
+}
+
+// Función para eliminar un producto del carrito
+function eliminarProducto(indice) {
+    carrito.splice(indice, 1);
+
+    actualizarContadorCarrito();
+    mostrarCarrito();
+    guardarCarritoEnLocalStorage();
+}
+
+BOTON_COMPRAR.forEach((boton, indice) => {
+    boton.addEventListener("click", () => {
+        agregarProductoAlCarrito(indice);
+    });
+});
+
+function agregarProductoAlCarrito(indice) {
+    const productoSeleccionado = arrayProductos[indice];
+    const productoEnCarrito = carrito.find(p => p.nombre === productoSeleccionado.nombre);
+
+    if (productoEnCarrito) {
+        if(productoEnCarrito.stock < productoSeleccionado.stock){
+            // Si el producto ya está en el carrito, incrementa su cantidad en 1
+            productoEnCarrito.stock += 1;
+            actualizarContadorCarrito();
+        }else{
+            mostrarMensajeError("No hay más stock disponible para este producto.");
+        }
+        
+    } else {
+        // Si el producto no está en el carrito, agrégalo con cantidad 1
+        const productoNuevo = {
+            ...productoSeleccionado,
+            stock: 1
+        };
+        carrito.push(productoNuevo);
+        actualizarContadorCarrito();
+    }
+    guardarCarritoEnLocalStorage();
+    
+}
+
+function mostrarMensajeError(mensaje) {
+    Toastify({
+        text: mensaje,
+        duration: 3000, // Duración del mensaje en milisegundos
+        gravity: "bottom", // Posición del mensaje (puedes usar "top", "bottom", "center")
+        backgroundColor: "red", // Color de fondo del mensaje
+        stopOnFocus: true, // Detener el temporizador al enfocarse en la página
+    }).showToast();
+}
+
+function actualizarContadorCarrito() {
+    let sumaProductosCarrito = 0;
+    for (let i = 0; i < carrito.length; i++) {
+        sumaProductosCarrito += carrito[i].stock;
+    }
+    CONTADOR_CARRITO.innerHTML = `${sumaProductosCarrito}`
+}
+
+function guardarCarritoEnLocalStorage() {
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+}
+
+
+function handleScroll() {
+    const HEADER = document.querySelector("#navBar");
+    if (window.scrollY >= 100) {
+        HEADER.classList.add("scrolled");
+    } else {
+        HEADER.classList.remove("scrolled");
+    }
+}
+
+
+// Vincula la función handleScroll al evento de scroll en la ventana
+window.addEventListener("scroll", handleScroll);
