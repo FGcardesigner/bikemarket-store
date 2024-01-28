@@ -1,0 +1,9 @@
+[{"nombre":"Bicicleta Devron","precio":2750,"caracteristicas":"Urbana electrica","img":"avenida.jpg","stock":3},
+{"nombre":"Bicicleta Ecobike","precio":3215,"caracteristicas":"Urbana electrica","img":"d2-city.jpg","stock":4},
+{"nombre":"Bicicleta RoadForce","precio":4800,"caracteristicas":"Bicicleta Urbana","img":"road-force.jpg","stock":5},
+{"nombre":"Bicicleta KTM","precio":3450,"caracteristicas":"Urbana electrica","img":"belador-hybrid-ltd-1.jpg","stock":2},
+{"nombre":"Bicicleta Berria","precio":4600,"caracteristicas":"Bicicleta de ruta","img":"escultura-400.jpg","stock":8},
+{"nombre":"Bicicleta Kross","precio":5400,"caracteristicas":"Bicicleta de ruta","img":"macina-fun-a510.jpg","stock":7},
+{"nombre":"Bicicleta Moser","precio":5760,"caracteristicas":"Bicicleta de ruta","img":"crossway-l-10-v.jpg","stock":6},
+{"nombre":"Bicicleta Monty","precio":2100,"caracteristicas":"Bicicleta urbana","img":"evado-4-0.jpg","stock":4},
+{"nombre":"Bicicleta Merida","precio":2600,"caracteristicas":"Bicicleta urbana","img":"corsa.jpg","stock":3}]

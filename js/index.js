@@ -1,37 +1,35 @@
-class Producto {
-    constructor(nombre, precio, caracteristicas, img, stock) {
-        this.nombre = nombre;
-        this.precio = precio;
-        this.caracteristicas = caracteristicas;
-        this.img = img;
-        this.stock = stock;
-    }
-}
-
-
-const PROD1 = new Producto("Bicicleta Devron", 2750, "Urbana electrica", "avenida.jpg", 3);
-const PROD2 = new Producto("Bicicleta Ecobike", 3215, "Urbana electrica", "d2-city.jpg", 4);
-const PROD3 = new Producto("Bicicleta RoadForce", 4800, "Bicicleta Urbana", "road-force.jpg", 5);
-const PROD4 = new Producto("Bicicleta KTM", 3450, "Urbana electrica", "belador-hybrid-ltd-1.jpg", 2);
-const PROD5 = new Producto("Bicicleta Berria", 4600, "Bicicleta de ruta", "escultura-400.jpg", 8);
-const PROD6 = new Producto("Bicicleta Kross", 5400, "Bicicleta de ruta", "macina-fun-a510.jpg", 1);
-const PROD7 = new Producto("Bicicleta Moser", 5760, "Bicicleta de ruta", "crossway-l-10-v.jpg", 6);
-const PROD8 = new Producto("Bicicleta Monty", 2100, "Bicicleta urbana", "evado-4-0.jpg", 4);
-const PROD9 = new Producto("Bicicleta Merida", 2600, "Bicicleta urbana", "corsa.jpg", 3);
-
-const arrayProductos = [PROD1, PROD2, PROD3, PROD4, PROD5, PROD6, PROD7, PROD8, PROD9];
 let carrito = [];
-let contadorCarrito = 0;
+const CARD_CONTAINER = document.getElementById("card-container");
 const CONTAINER_CAJA = document.getElementById("seccion-contenedor");
 
-// Obtén el contenedor una vez fuera del bucle
-const CARD_CONTAINER = document.getElementById("card-container");
+const CONTADOR_CARRITO = document.querySelector("#contador-carrito");
+CONTADOR_CARRITO.innerHTML = `${carrito.length}`
+const BOTON_CARRITO = document.querySelector("#boton-carrito");
+BOTON_CARRITO.addEventListener("click", mostrarCarrito);
 
+async function cargarProductos() {
+    try {
+        const response = await fetch("https://raw.githubusercontent.com/FGcardesigner/bikemarket-store/main/productos.json");
+        // const response = await fetch("../productos.json");
+        if (!response.ok) {
+            throw new Error(`Error al cargar el archivo JSON. Código de error: ${response.status}`);
+        }
+        PRODUCTOS = await response.json();
 
-document.addEventListener('DOMContentLoaded', (event) => {
-    // Esto se ejecutará cuando el documento HTML haya sido completamente cargado
-    cargarCarritoDesdeLocalStorage();
-});
+        cargarCarritoDesdeLocalStorage();
+        crearProductos();
+        const BOTON_COMPRAR = document.querySelectorAll(".btn-comprar");
+        BOTON_COMPRAR.forEach((boton, indice) => {
+            boton.addEventListener("click", () => {
+                agregarProductoAlCarrito(indice, PRODUCTOS);
+            });
+        });
+
+    }
+    catch (error) {
+        console.error('Error al iniciar la aplicación:', error);
+    }
+}
 
 function cargarCarritoDesdeLocalStorage() {
     const carritoGuardado = localStorage.getItem('carrito');
@@ -44,14 +42,18 @@ function cargarCarritoDesdeLocalStorage() {
 }
 
 
-arrayProductos.forEach(producto => {
-    // Crea el elemento div dentro del bucle
-    const div = document.createElement("div");
-    // Establece la clase del div
-    div.className = "col-lg-4 col-md-6 col-sm-12";
 
-    // Establece el contenido HTML del div
-    div.innerHTML = `
+
+
+function crearProductos() {
+    PRODUCTOS.forEach(producto => {
+        // Crea el elemento div dentro del bucle
+        const div = document.createElement("div");
+        // Establece la clase del div
+        div.className = "col-lg-4 col-md-6 col-sm-12";
+
+        // Establece el contenido HTML del div
+        div.innerHTML = `
         <div class="card mt-5">
             <div class="card-img-container">
                 <img class="card-img-top" src="./assets/img/${producto.img}">
@@ -65,16 +67,11 @@ arrayProductos.forEach(producto => {
         </div>    
     `;
 
-    // Agrega el div al contenedor una vez fuera del bucle
-    CARD_CONTAINER.appendChild(div);
-});
+        // Agrega el div al contenedor una vez fuera del bucle
+        CARD_CONTAINER.appendChild(div);
+    });
+}
 
-const BOTON_COMPRAR = document.querySelectorAll(".btn-comprar");
-const CONTADOR_CARRITO = document.querySelector("#contador-carrito");
-CONTADOR_CARRITO.innerHTML = `${carrito.length}`
-const BOTON_CARRITO = document.querySelector("#boton-carrito");
-
-BOTON_CARRITO.addEventListener("click", mostrarCarrito);
 
 function mostrarCarrito() {
     // Verifica si hay elementos en el carrito
@@ -125,36 +122,36 @@ function mostrarCarrito() {
                 </div>
             </div>`;
 
-            Swal.fire({
-                title: 'Carrito de compras',
-                html: contenidoHtml,
-                width: 600,
-                showCloseButton: true,
-                confirmButtonText: 'Continuar Compra',
-                didRender: () => {
-                    // Agrega los event listeners después de que se renderiza la ventana modal
-                    const modal = Swal.getPopup();
-                    if (modal) {
-                        modal.querySelectorAll('.boton-sumar').forEach((boton, indice) => {
-                            boton.addEventListener("click", () => {
-                                modificarStock(indice, 1);
-                            });
+        Swal.fire({
+            title: 'Carrito de compras',
+            html: contenidoHtml,
+            width: 600,
+            showCloseButton: true,
+            confirmButtonText: 'Continuar Compra',
+            didRender: () => {
+                // Agrega los event listeners después de que se renderiza la ventana modal
+                const modal = Swal.getPopup();
+                if (modal) {
+                    modal.querySelectorAll('.boton-sumar').forEach((boton, indice) => {
+                        boton.addEventListener("click", () => {
+                            modificarStock(indice, 1);
                         });
-        
-                        modal.querySelectorAll('.boton-restar').forEach((boton, indice) => {
-                            boton.addEventListener("click", () => {
-                                modificarStock(indice, -1);
-                            });
+                    });
+
+                    modal.querySelectorAll('.boton-restar').forEach((boton, indice) => {
+                        boton.addEventListener("click", () => {
+                            modificarStock(indice, -1);
                         });
-        
-                        modal.querySelectorAll('.carrito-eliminar').forEach((boton, indice) => {
-                            boton.addEventListener("click", () => {
-                                eliminarProducto(indice);
-                            });
+                    });
+
+                    modal.querySelectorAll('.carrito-eliminar').forEach((boton, indice) => {
+                        boton.addEventListener("click", () => {
+                            eliminarProducto(indice);
                         });
-                    }
+                    });
                 }
-            }).then((result) => {
+            }
+        }).then((result) => {
             if (result.isConfirmed) {
                 // Lógica para continuar la compra
                 // ...
@@ -172,9 +169,8 @@ function modificarStock(indice, cantidad) {
     if (cantidad > 0) {
         // Incrementa la cantidad y verifica si no supera el stock máximo
 
-        if (producto.stock < arrayProductos.find(p => p.nombre === producto.nombre).stock) {
+        if (producto.stock < PRODUCTOS.find(p => p.nombre === producto.nombre).stock) {
             carrito[indice].stock += cantidad;
-            console.log(carrito[indice].stock)
             actualizarContadorCarrito();
         } else {
 
@@ -182,7 +178,6 @@ function modificarStock(indice, cantidad) {
     } else if (cantidad < 0) {
         // Decrementa la cantidad y verifica si no es menor que cero
         carrito[indice].stock += cantidad;
-        console.log(carrito[indice].stock);
         actualizarContadorCarrito();
         if (carrito[indice].stock < 1) {
             eliminarProducto(indice);
@@ -204,25 +199,19 @@ function eliminarProducto(indice) {
     guardarCarritoEnLocalStorage();
 }
 
-BOTON_COMPRAR.forEach((boton, indice) => {
-    boton.addEventListener("click", () => {
-        agregarProductoAlCarrito(indice);
-    });
-});
-
-function agregarProductoAlCarrito(indice) {
+function agregarProductoAlCarrito(indice, arrayProductos) {
     const productoSeleccionado = arrayProductos[indice];
     const productoEnCarrito = carrito.find(p => p.nombre === productoSeleccionado.nombre);
 
     if (productoEnCarrito) {
-        if(productoEnCarrito.stock < productoSeleccionado.stock){
+        if (productoEnCarrito.stock < productoSeleccionado.stock) {
             // Si el producto ya está en el carrito, incrementa su cantidad en 1
             productoEnCarrito.stock += 1;
             actualizarContadorCarrito();
-        }else{
+        } else {
             mostrarMensajeError("No hay más stock disponible para este producto.");
         }
-        
+
     } else {
         // Si el producto no está en el carrito, agrégalo con cantidad 1
         const productoNuevo = {
@@ -233,7 +222,7 @@ function agregarProductoAlCarrito(indice) {
         actualizarContadorCarrito();
     }
     guardarCarritoEnLocalStorage();
-    
+
 }
 
 function mostrarMensajeError(mensaje) {
@@ -271,3 +260,4 @@ function handleScroll() {
 
 // Vincula la función handleScroll al evento de scroll en la ventana
 window.addEventListener("scroll", handleScroll);
+cargarProductos();
